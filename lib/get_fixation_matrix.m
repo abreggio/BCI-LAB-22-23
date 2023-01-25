@@ -4,9 +4,15 @@
 % 
 %     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-function trial_matrix = get_trial_matrix(body, gdf_event_decorator)
-    trials_dur = sum(reshape(gdf_event_decorator.get_dur(), 4,[]),1);
-    sample_dim = max(trials_dur);
+function trial_matrix = get_fixation_matrix(body, gdf_event_decorator)
+    
+    % each period has its duration in gdf_event_decorator.get_dur()
+    % at the same index
+
+    fixation_duration = gdf_event_decorator.get_dur();
+    fixation_duration = fixation_duration(gdf_event_decorator.get_typ() == 786);
+
+    sample_dim = max(fixation_duration);
 
     % get the number of trials starting from the trial start
 
@@ -18,8 +24,8 @@ function trial_matrix = get_trial_matrix(body, gdf_event_decorator)
     
     
     for index = 1 : trial_num
-        trial_dur = trials_dur(index);
-        trial_pos = gdf_event_decorator.get_pos_for_start();
+        trial_dur = fixation_duration(index);
+        trial_pos = gdf_event_decorator.get_pos_for_fixation();
         trial_pos = trial_pos(index);
         % stupid matlab wont let me chain methods
         trial_matrix(1:trial_dur+1, :, index) = body(trial_pos:trial_pos+trial_dur, :);

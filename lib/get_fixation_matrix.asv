@@ -4,9 +4,12 @@
 % 
 %     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-function trial_matrix = get_trial_matrix(body, gdf_event_decorator)
-    trials_dur = sum(reshape(gdf_event_decorator.get_dur(), 4,[]),1);
-    sample_dim = max(trials_dur);
+function trial_matrix = get_fixation_matrix(body, gdf_event_decorator)
+    
+    % each period has its duration in gdf_event_decorator.get_dur()
+    % at the same index
+
+    fixation_duration = gd
 
     % get the number of trials starting from the trial start
 

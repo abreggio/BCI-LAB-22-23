@@ -89,7 +89,7 @@ binding = @(matrix) extract_trials_of_type_s(matrix, gdf_event_decorator, [771 7
 %% Baseline extraction
 
 baseline_hands_mu = repmat(mean(fixation_data_mu_band_hands), [size(trial_data_mu_band_hands, 1) 1 1]);
-baseline_feet_mu = repmat(mean(fixation_data_mu_band_feet), [size(trial_data_mu_band_feet, 1) 1 1]);
+baseline_feet_mu = repmat(mean(fix_data_mu_band_feet), [size(trial_data_mu_band_feet, 1) 1 1]);
 
 baseline_hands_beta = repmat(mean(fixation_data_beta_band_hands), [size(trial_data_beta_band_hands, 1) 1 1]);
 baseline_feet_beta = repmat(mean(fixation_data_beta_band_feet), [size(trial_data_beta_band_feet, 1) 1 1]);
@@ -99,28 +99,45 @@ baseline_feet_beta = repmat(mean(fixation_data_beta_band_feet), [size(trial_data
 ERD_hands_mu = log(trial_data_mu_band_hands ./ baseline_hands_mu);
 ERD_hands_beta = log(trial_data_beta_band_hands ./ baseline_hands_beta);
 
-ERD_feet_mu = log(trial_data_mu_band_feet ./ baseline_feet_mu);
-ERD_feet_beta = log(trial_data_beta_band_feet ./ baseline_feet_beta);
+ERD_hands_mu = log(trial_data_mu_band_hands ./ baseline_hands_mu);
+ERD_hands_beta = log(trial_data_beta_band_feet ./ baseline_feet_beta);
+
 
 %% average ERD
+
 
 
 %% plt averaged erd
 
 % plot hands
 figure(1)
-tiledlayout(2, 2)
+tiledlayout(3, 3)
 
 ax1 = nexttile;
 
-plot_avg_c3_cz_c4(ERD_hands_beta);
+plot_avg_c3_cz_c4(trial_hands_unfiltered);
 
 
 ax2 = nexttile;
-plot_avg_c3_cz_c4(ERD_hands_mu)
+plot_avg_c3_cz_c4(trial_hands_filtered)
 
 ax3 = nexttile;
-plot_avg_c3_cz_c4(ERD_feet_beta)
+plot_avg_c3_cz_c4(trial_hands_filtered_beta)
 
 ax4 = nexttile;
-plot_avg_c3_cz_c4(ERD_feet_mu)
+plot_avg_trial_on_chn(trial_hands_pipelined, 7);
+
+ax4 = nexttile;
+plot_avg_trial_on_chn(trial_hands_pipelined, 9);
+
+ax4 = nexttile;
+plot_avg_trial_on_chn(trial_hands_pipelined, 11);
+
+ax4 = nexttile;
+plot_avg_trial_on_chn(trial_hands_pipelined_beta, 7);
+
+ax4 = nexttile;
+plot_avg_trial_on_chn(trial_hands_pipelined_beta, 9);
+
+ax4 = nexttile;
+plot_avg_trial_on_chn(trial_hands_pipelined_beta, 11);

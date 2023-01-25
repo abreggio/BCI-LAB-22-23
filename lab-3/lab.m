@@ -25,6 +25,7 @@ body = cat(1, body, body2, body3);
 
 % somehow I get a column of zeros
 
+body = body(:, 1:16);
 
 clear("body2");
 clear("body3");

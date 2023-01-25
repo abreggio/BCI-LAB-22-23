@@ -14,13 +14,18 @@ biosig_loc = getenv("BIOSIG_LOC");
 addpath("../lib/")
 addpath(strcat(biosig_loc, '/t200_FileAccess/'))
 addpath(strcat(biosig_loc, '/t250_ArtifactPreProcessingQualityControl/'))
-[body, header] = sload('lab.gdf');
-[body2, header2] = sload('lab2.gdf');
-[body3, header3] = sload('lab3.gdf');
+[body, header] = sload('../data/lab.gdf');
+[body2, header2] = sload('../data/lab2.gdf');
+[body3, header3] = sload('../data/lab3.gdf');
 gdf_event_decorator = GDF_event_decorator(header.EVENT) + GDF_event_decorator(header2.EVENT);
 gdf_event_decorator = gdf_event_decorator + GDF_event_decorator(header3.EVENT);
 
+% somehow I get a column of all zeros
+
 body = cat(1, body, body2, body3);
+
+body = body(:,1:16);
+
 clear("body2");
 clear("body3");
 

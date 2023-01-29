@@ -34,7 +34,7 @@ disp(gdf_event_decorator.event_header)
 
 %% load and apply laplacian map
 
-load('laplacian16.mat');
+load('../data/laplacian16.mat');
 
 body = body * lap;
 

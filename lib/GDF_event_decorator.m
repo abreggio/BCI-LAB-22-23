@@ -1,4 +1,4 @@
-%      This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+%     This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 % 
 %     This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 % 
@@ -9,9 +9,12 @@ classdef GDF_event_decorator
         event_header
     end
     methods
+        
         function this = GDF_event_decorator(event_header)
-            this.event_header = event_header;
+                this.event_header = event_header;
         end
+        
+
         function new = plus(this, other)
             if this.event_header.SampleRate ~= other.event_header.SampleRate
                 ME = MException('different samplerate', 'cant add headers with different sample rate');
@@ -21,7 +24,7 @@ classdef GDF_event_decorator
             header.TYP = [];
             header.DUR = [];
             header.CHN = [];
-            header.SampleRate = this.event_header.SampleRate;
+            header.SampleRate = other.event_header.SampleRate;
             header.POS = cat(1, this.event_header.POS, other.event_header.POS + this.event_header.POS(end, 1));
             header.TYP = cat(1, this.event_header.TYP, other.event_header.TYP);
             header.DUR = cat(1, this.event_header.DUR, other.event_header.DUR);

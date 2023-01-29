@@ -23,6 +23,9 @@ for i = 1 : length(fileList)
     name = strcat('../data/', fileList(i).name);
 
     [body, data] = sload(name);
+    
+    num_events = length(data.EVENT.POS);
+    
     body = body(:, 1:16) * lap;
     
     wlength = 0.5; 
@@ -34,9 +37,20 @@ for i = 1 : length(fileList)
 
     PSD = PSD(:, 4:48, :);
     
-
+    
     winconv = 'backward';
-    POS = proc_pos2win(data.EVENT.POS, wshift*samplerate, winconv, mlength*samplerate);
+    data.EVENT.POS = proc_pos2win(data.EVENT.POS, wshift*samplerate, winconv, mlength*samplerate);
+        
+    %   recalculate DUR to be in windows, store everything
+    %   in the event header
+    
+    for k = 2 : length(POS)
+            
+       data.EVENT.DUR(k-1) = data.EVENT.POS(k) - data.EVENT.POS(k-1);
 
+    end
+
+    data.EVENT.DUR(length(data.EVENT.POS)) = data.EVENT.POS(end) - data.EVENT.POS()
+    
     save(strcat('./data/', fileList(i).name, '.mat'), 'PSD', 'POS')
 end

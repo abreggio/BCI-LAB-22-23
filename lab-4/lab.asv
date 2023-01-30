@@ -76,13 +76,28 @@ erd_feet = log(trial_data_windows_feet ./ baseline_feet);
 average_erd_over_trials_feet = mean(erd_feet, 4);
 average_erd_over_trials_hands = mean(erd_hands, 4);
 
-average_erd_over_trials_feet = mean(average_erd_over_trials_feet, 1);
-average_erd_over_trials_hands = mean(average_erd_over_trials_hands, 1);
-
 %% visualize hands
 
-imagesc(average_erd_over_trials_hands)
+imagesc(average_erd_over_trials_hands(:,:,9)')
+colorbar
 
 %% visualize feet
 
-imagesc(average_erd_over_trials_feet)
+imagesc(average_erd_over_trials_hands(:,:,9)')
+colorbar
+
+%% P2
+
+[PSD_feet, PSD_hands] = extract_trials_of_type_s(PSD, gdf_event_decorator, [771 773]);
+
+fisher_score_hands = get_fisher_score(PSD_hands);
+fisher_score_feet = get_fisher_score(PSD_feet);
+
+%% visualize hands
+
+imagesc(fisher_score_hands);
+
+%% visualize feet
+
+imagesc(fisher_score_hands);
+

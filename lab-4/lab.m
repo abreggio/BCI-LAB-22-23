@@ -88,4 +88,16 @@ colorbar
 
 %% P2
 
+[PSD_feet, PSD_hands] = extract_windows_of_type_s(PSD, gdf_event_decorator, [771 773]);
 
+fisher_score_hands = get_fisher_score(PSD_hands);
+fisher_score_feet = get_fisher_score(PSD_feet);
+
+%% visualize hands
+
+imagesc(fisher_score_hands);
+colorbar
+%% visualize feet
+
+imagesc(fisher_score_hands);
+colorbar

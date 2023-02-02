@@ -4,16 +4,12 @@
 % 
 %     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-function mov_mean = moving_mean(body, window_size)
+function mov_mean = moving_mean(body, seconds, SampleRate)
 
     mov_mean = zeros(size(body));
     
-    to_convolve = ones(1, window_size);
-    
     for i = 1:size(body, 2)
-
-        mov_mean(:, i) = conv(body(:, i), to_convolve, 'same') / 512;
-
+        mov_mean(:,i) = (filter(ones(1, seconds*SampleRate)/seconds/SampleRate, 1, body(:, i)));
     end
 
 end
